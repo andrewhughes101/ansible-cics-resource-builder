@@ -2,7 +2,7 @@
 # Apache License, Version 2.0 (see https://opensource.org/licenses/Apache-2.0)
 ---
 - name: Update existing CSD with resource builder yaml
-  hosts: zos_host
+  hosts: all
   gather_facts: false
   environment: "{{ environment_vars }}"
 
