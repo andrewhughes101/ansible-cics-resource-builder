@@ -58,3 +58,8 @@
             dsn: "{{ csd_path }}"
         cics_data_sets:
           sdfhload: "CTS610.CICS740.SDFHLOAD"
+
+    - name: Cleanup USS files
+      ansible.builtin.file:
+        path: "{{ uss_dest_path }}"
+        state: absent
