@@ -1,0 +1,8 @@
+# (c) Copyright IBM Corp. 2024
+# Apache License, Version 2.0 (see https://opensource.org/licenses/Apache-2.0)
+---
+collections:
+  - name: ibm.ibm_zos_cics
+    version: 2.1.0
+  - name: ibm.ibm_zos_core
+    version: 1.9.1

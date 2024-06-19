@@ -1,0 +1,5 @@
+# (c) Copyright IBM Corp. 2024
+# Apache License, Version 2.0 (see https://opensource.org/licenses/Apache-2.0)
+pyz: "/python/v3r9/usr/lpp/IBM/cyp/v3r9/pyz"
+zoau: "/usr/lpp/IBM/zoautil"
+zrb: "/u/hughea/resource-builder/cics-resource-builder-1.0.4/bin/zrb"

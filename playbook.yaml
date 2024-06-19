@@ -1,0 +1,50 @@
+# (c) Copyright IBM Corp. 2024
+# Apache License, Version 2.0 (see https://opensource.org/licenses/Apache-2.0)
+---
+- name: Update existing CSD with resource builder yaml
+  hosts: zos_host
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+
+  vars:
+    uss_dest_path: "/u/{{ ansible_user }}/ansible-resource-builder"
+    model_path: "{{ uss_dest_path }}/model.yaml"
+    defs_path: "{{ uss_dest_path }}/defs.yaml"
+    script_path: "{{ uss_dest_path }}/script"
+
+
+  tasks:
+    - name: Ensure destination directory exists
+      ansible.builtin.file:
+        path: "{{ uss_dest_path }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy resource model YAML to USS
+      ibm.ibm_zos_core.zos_copy:
+        src: "{{ playbook_dir }}/cics-model.yaml"
+        dest: "{{ model_path }}"
+        force: true
+        encoding:
+          from: ISO8859-1
+          to: ISO8859-1
+
+    - name: Copy resource definitions YAML to USS
+      ibm.ibm_zos_core.zos_copy:
+        src: "{{ playbook_dir }}/cics-model.yaml"
+        dest: "{{ defs_path }}"
+        force: true
+        encoding:
+          from: ISO8859-1
+          to: ISO8859-1
+
+
+    - name: Check CICS resource builder is setup
+      ansible.builtin.command:
+        cmd: "{{ zrb }} --version"
+      changed_when: false
+
+    - name: Generate definitions
+      ansible.builtin.command:
+        cmd: "{{ zrb }} build -r {{ defs_path }} -m {{ model_path }} -o {{ script_path }}"
+      changed_when: true

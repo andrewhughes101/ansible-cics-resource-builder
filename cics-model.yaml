@@ -1,0 +1,35 @@
+schemaVersion: resourceModel/1.0
+application:
+  name: CICS Sandpit Application
+  constraints:
+    - id: app-prefix
+      prefix: AP
+    - id: group-name
+      pattern: "^[A-Z0-9]+$"
+
+resourceModel:
+  target: cicsts-6.1.0
+  defines:
+    - id: client-urimap
+      description: For calling outbound URIs
+      type: urimap
+      attributes:
+        public:
+          name: 
+            required: true
+            constraintId: app-prefix
+            description: Specfiy the name of URIMAP for outbound URIs
+          group: 
+            required: true
+            constraintId: group-name
+            description: Specify the name of the RDO group
+          description: 
+            required: false
+          path:
+            required: true
+            description: Specify path component of client URIs
+        private:
+          host: 10.11.12.13
+          usage: CLIENT
+          status: ENABLED
+          scheme: HTTPS

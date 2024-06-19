@@ -1,0 +1,5 @@
+resourceDefinitions:
+  - client-urimap:
+      name: APCLNT01
+      group: WEBAPP
+      path: /apclnt01
