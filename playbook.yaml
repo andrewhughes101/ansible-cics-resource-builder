@@ -7,7 +7,7 @@
   environment: "{{ environment_vars }}"
 
   vars:
-    uss_dest_path: "/u/{{ ansible_user }}/ansible-resource-builder"
+    uss_dest_path: "/u/{{ ansible_user | lower }}/ansible-resource-builder"
     model_path: "{{ uss_dest_path }}/model.yaml"
     defs_path: "{{ uss_dest_path }}/defs.yaml"
     script_path: "{{ uss_dest_path }}/script"
