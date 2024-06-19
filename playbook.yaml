@@ -11,7 +11,7 @@
     model_path: "{{ uss_dest_path }}/model.yaml"
     defs_path: "{{ uss_dest_path }}/defs.yaml"
     script_path: "{{ uss_dest_path }}/script"
-
+    csd_path: "HUGHEA.REGIONS.IYK2ZPZ5.DFHCSD"
 
   tasks:
     - name: Ensure destination directory exists
@@ -38,7 +38,6 @@
           from: ISO8859-1
           to: ISO8859-1
 
-
     - name: Check CICS resource builder is setup
       ansible.builtin.command:
         cmd: zrb --version
@@ -48,3 +47,14 @@
       ansible.builtin.command:
         cmd: zrb build -r "{{ defs_path }}" -m "{{ model_path }}" -o "{{ script_path }}"
       changed_when: true
+
+    - name: Update CSD with new definitions
+      ibm.ibm_zos_cics.csd:
+        state: changed
+        input_location: USS
+        input_src: "{{ script_path }}"
+        region_data_sets:
+          dfhcsd:
+            dsn: "{{ csd_path }}"
+        cics_data_sets:
+          sdfhload: "CTS610.CICS740.SDFHLOAD"
