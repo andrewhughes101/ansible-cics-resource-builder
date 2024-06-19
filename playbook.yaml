@@ -31,7 +31,7 @@
 
     - name: Copy resource definitions YAML to USS
       ibm.ibm_zos_core.zos_copy:
-        src: "{{ playbook_dir }}/cics-model.yaml"
+        src: "{{ playbook_dir }}/cics-definitions.yaml"
         dest: "{{ defs_path }}"
         force: true
         encoding:
@@ -40,11 +40,11 @@
 
 
     - name: Check CICS resource builder is setup
-      ansible.builtin.shell:
+      ansible.builtin.command:
         cmd: zrb --version
       changed_when: false
 
     - name: Generate definitions
       ansible.builtin.command:
-        cmd: zrb "build -r {{ defs_path }} -m {{ model_path }} -o {{ script_path }}"
+        cmd: zrb build -r "{{ defs_path }}" -m "{{ model_path }}" -o "{{ script_path }}"
       changed_when: true
