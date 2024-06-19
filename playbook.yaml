@@ -40,7 +40,7 @@
 
 
     - name: Check CICS resource builder is setup
-      ansible.builtin.command:
+      ansible.builtin.shell:
         cmd: zrb --version
       changed_when: false
 
