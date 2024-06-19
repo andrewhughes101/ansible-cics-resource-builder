@@ -41,10 +41,10 @@
 
     - name: Check CICS resource builder is setup
       ansible.builtin.command:
-        cmd: "{{ zrb }} --version"
+        cmd: zrb --version
       changed_when: false
 
     - name: Generate definitions
       ansible.builtin.command:
-        cmd: "{{ zrb }} build -r {{ defs_path }} -m {{ model_path }} -o {{ script_path }}"
+        cmd: zrb "build -r {{ defs_path }} -m {{ model_path }} -o {{ script_path }}"
       changed_when: true
